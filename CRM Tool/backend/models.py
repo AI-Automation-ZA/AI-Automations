@@ -30,3 +30,10 @@ class SalesPipeline(SQLModel, table=True):
     engage_date: Optional[date] = None
     close_date: Optional[date] = None
     close_value: Optional[float] = None
+
+class User(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(index=True, unique=True)
+    hashed_password: str
+    is_active: bool = Field(default=True)
+    is_admin: bool = Field(default=False)
