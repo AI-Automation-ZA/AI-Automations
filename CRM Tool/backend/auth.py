@@ -8,10 +8,12 @@ from sqlmodel import Session, select
 from database import get_session
 from models import User
 
-# This should be in an environment variable in production
-SECRET_KEY = "super-secret-key-for-development-only"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+import os
+
+# Security by Design: Load sensitive configuration from environment variables
+SECRET_KEY = os.getenv("SECRET_KEY", "super-secret-key-for-development-only")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

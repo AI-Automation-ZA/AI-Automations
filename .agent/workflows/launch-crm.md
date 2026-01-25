@@ -37,12 +37,16 @@ Follow these steps to get the CRM system up and running on your local machine.
    ```
 4. Open your browser and navigate to `http://localhost:3000`.
 
+### Step 0: Configure Environment (Optional but Recommended)
+1. In the `backend` folder, copy `.env.example` to `.env`.
+   - Update `ADMIN_USERNAME` and `ADMIN_PASSWORD` if you'd like to change defaults.
+2. In the `frontend` folder, copy `.env.example` to `.env.local`.
+
 ### Step 3: Login to the System
-Use the following fictitious credentials to access the CRM:
-- **Username**: `admin`
-- **Password**: `admin123`
+Use the credentials you configured in your `.env` file (or the system defaults if no `.env` exists).
 
 ---
 ### Troubleshooting
 - **API Errors**: Ensure the backend server is running before attempting to log in.
 - **Node Modules**: If the frontend fails to start, run `npm install` in the `frontend` directory.
+- **Security Check**: Never commit your `.env` files to git. They are already in `.gitignore` by default.
