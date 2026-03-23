@@ -1,11 +1,13 @@
-import pandas as pd
-from sqlmodel import Session, SQLModel, create_engine, select
-from models import Account, Product, SalesTeam, SalesPipeline
-from database import engine
-import os
 from datetime import datetime
+from pathlib import Path
 
-DATA_DIR = "../../CRM Data"
+import pandas as pd
+from sqlmodel import Session, SQLModel, func, select
+
+from database import engine
+from models import Account, Product, SalesPipeline, SalesTeam
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "CRM Data"
 
 def clean_date(date_str):
     if pd.isna(date_str) or date_str == "":
@@ -17,7 +19,7 @@ def clean_date(date_str):
 
 def import_accounts():
     print("Importing accounts...")
-    df = pd.read_csv(os.path.join(DATA_DIR, "accounts.csv"))
+    df = pd.read_csv(DATA_DIR / "accounts.csv")
     with Session(engine) as session:
         for _, row in df.iterrows():
             account = Account(
@@ -34,7 +36,7 @@ def import_accounts():
 
 def import_products():
     print("Importing products...")
-    df = pd.read_csv(os.path.join(DATA_DIR, "products.csv"))
+    df = pd.read_csv(DATA_DIR / "products.csv")
     with Session(engine) as session:
         for _, row in df.iterrows():
             product = Product(
@@ -47,7 +49,7 @@ def import_products():
 
 def import_sales_teams():
     print("Importing sales teams...")
-    df = pd.read_csv(os.path.join(DATA_DIR, "sales_teams.csv"))
+    df = pd.read_csv(DATA_DIR / "sales_teams.csv")
     with Session(engine) as session:
         for _, row in df.iterrows():
             team = SalesTeam(
@@ -60,7 +62,7 @@ def import_sales_teams():
 
 def import_pipeline():
     print("Importing sales pipeline...")
-    df = pd.read_csv(os.path.join(DATA_DIR, "sales_pipeline.csv"))
+    df = pd.read_csv(DATA_DIR / "sales_pipeline.csv")
     with Session(engine) as session:
         for _, row in df.iterrows():
             pipeline = SalesPipeline(
@@ -76,10 +78,44 @@ def import_pipeline():
             session.merge(pipeline)
         session.commit()
 
-if __name__ == "__main__":
+
+def import_all_data_if_empty():
     SQLModel.metadata.create_all(engine)
-    import_accounts()
-    import_products()
-    import_sales_teams()
-    import_pipeline()
+
+    with Session(engine) as session:
+        has_accounts = session.exec(select(func.count(Account.account))).one() > 0
+        has_products = session.exec(select(func.count(Product.product))).one() > 0
+        has_sales_teams = session.exec(select(func.count(SalesTeam.sales_agent))).one() > 0
+        has_pipeline = session.exec(select(func.count(SalesPipeline.opportunity_id))).one() > 0
+
+    imported = []
+
+    if not has_accounts:
+        import_accounts()
+        imported.append("accounts")
+    else:
+        print("Accounts already loaded. Skipping import.")
+
+    if not has_products:
+        import_products()
+        imported.append("products")
+    else:
+        print("Products already loaded. Skipping import.")
+
+    if not has_sales_teams:
+        import_sales_teams()
+        imported.append("sales_teams")
+    else:
+        print("Sales teams already loaded. Skipping import.")
+
+    if not has_pipeline:
+        import_pipeline()
+        imported.append("sales_pipeline")
+    else:
+        print("Sales pipeline already loaded. Skipping import.")
+
+    return imported
+
+if __name__ == "__main__":
+    import_all_data_if_empty()
     print("Data ingestion complete!")

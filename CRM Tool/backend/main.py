@@ -5,8 +5,10 @@ from sqlmodel import Session, select, func
 from typing import List
 from datetime import timedelta
 
-from database import engine, get_session, create_db_and_tables
-from models import Account, Product, SalesPipeline, SalesTeam, User
+from database import get_session, create_db_and_tables
+from import_data import import_all_data_if_empty
+from init_users import ensure_admin_user
+from models import Account, Product, SalesPipeline, User
 import schemas
 import auth
 
@@ -28,6 +30,8 @@ app.add_middleware(
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+    ensure_admin_user()
+    import_all_data_if_empty()
 
 @app.post("/token", response_model=schemas.Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):

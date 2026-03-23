@@ -1,6 +1,8 @@
-from sqlmodel import SQLModel, create_engine, Session
+from pathlib import Path
 
-sqlite_file_name = "crm_database.db"
+from sqlmodel import SQLModel, Session, create_engine
+
+sqlite_file_name = Path(__file__).resolve().parent / "crm_database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 connect_args = {"check_same_thread": False}
