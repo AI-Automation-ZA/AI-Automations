@@ -1,9 +1,11 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import { ReactNode, useEffect, useState } from 'react';
 import {
     LayoutDashboard,
+    type LucideIcon,
     Users,
     Settings,
     LogOut,
@@ -16,9 +18,15 @@ import {
 import { cn } from '@/lib/utils';
 import api from '@/lib/api';
 
+interface CurrentUser {
+    username: string;
+    is_active: boolean;
+    is_admin: boolean;
+}
+
 interface NavItemProps {
     href: string;
-    icon: any;
+    icon: LucideIcon;
     label: string;
 }
 
@@ -27,7 +35,7 @@ function NavItem({ href, icon: Icon, label }: NavItemProps) {
     const isActive = pathname === href;
 
     return (
-        <a
+        <Link
             href={href}
             className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
@@ -39,13 +47,13 @@ function NavItem({ href, icon: Icon, label }: NavItemProps) {
             <Icon className={cn("w-5 h-5", isActive ? "text-white" : "group-hover:text-blue-400")} />
             <span className="font-medium">{label}</span>
             {isActive && <ChevronRight className="ml-auto w-4 h-4 text-white/50" />}
-        </a>
+        </Link>
     );
 }
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<CurrentUser | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -95,8 +103,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                 </span>
                             </div>
                             <div className="flex-1 overflow-hidden">
-                                <p className="text-sm font-semibold truncate">{user?.full_name || 'Admin User'}</p>
-                                <p className="text-xs text-slate-500 truncate">{user?.username || 'admin'}</p>
+                                <p className="text-sm font-semibold truncate">{user?.username || 'admin'}</p>
+                                <p className="text-xs text-slate-500 truncate">{user?.is_admin ? 'Administrator' : 'User'}</p>
                             </div>
                         </div>
                         <button

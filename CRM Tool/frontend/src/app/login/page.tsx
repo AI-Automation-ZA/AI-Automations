@@ -1,10 +1,10 @@
 'use client';
 
+import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import { Lock, User as UserIcon, AlertCircle, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -19,19 +19,22 @@ export default function LoginPage() {
         setError('');
 
         try {
-            // Security by Design: Fast API expect OAuth2 form data
-            const formData = new FormData();
+            const formData = new URLSearchParams();
             formData.append('username', username);
             formData.append('password', password);
 
             const response = await api.post('/token', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             });
 
             localStorage.setItem('token', response.data.access_token);
             router.push('/dashboard');
-        } catch (err: any) {
-            setError(err.response?.data?.detail || 'Login failed. Please check your credentials.');
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.detail || 'Login failed. Please check your credentials.');
+            } else {
+                setError('Login failed. Please check your credentials.');
+            }
         } finally {
             setLoading(false);
         }
@@ -82,7 +85,7 @@ export default function LoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all"
-                                    placeholder="••••••••"
+                                    placeholder="********"
                                 />
                             </div>
                         </div>
@@ -96,14 +99,14 @@ export default function LoginPage() {
                         {loading ? (
                             <Loader2 className="w-5 h-5 animate-spin" />
                         ) : (
-                            "Sign In"
+                            'Sign In'
                         )}
                     </button>
                 </form>
 
                 <div className="pt-6 border-t border-slate-800 text-center">
                     <p className="text-slate-500 text-xs">
-                        Security by Design Enforced • Unauthorized access is strictly prohibited
+                        Security by Design Enforced | Unauthorized access is strictly prohibited
                     </p>
                 </div>
             </div>

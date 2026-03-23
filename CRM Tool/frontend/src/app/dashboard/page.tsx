@@ -7,7 +7,7 @@ import {
     Building2,
     Package,
     TrendingUp,
-    Users2,
+    type LucideIcon,
     ArrowUpRight,
     ArrowDownRight,
     Briefcase,
@@ -16,10 +16,17 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+interface DashboardStats {
+    total_accounts: number;
+    total_products: number;
+    total_revenue_won: number;
+    total_deals_engaging: number;
+}
+
 interface StatCardProps {
     title: string;
     value: string | number;
-    icon: any;
+    icon: LucideIcon;
     trend?: string;
     isPositive?: boolean;
 }
@@ -50,7 +57,7 @@ function StatCard({ title, value, icon: Icon, trend, isPositive }: StatCardProps
 }
 
 export default function DashboardPage() {
-    const [stats, setStats] = useState<any>(null);
+    const [stats, setStats] = useState<DashboardStats | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
