@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Project-local artifacts
+crm_database.db
+CRM Tool/backend/crm_database.db
+CRM Tool/frontend/.next/
+CRM Tool/frontend/node_modules/
