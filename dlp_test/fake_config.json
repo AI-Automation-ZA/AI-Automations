@@ -1,0 +1,37 @@
+{
+  "_comment": "DLP TESTING ONLY — ALL VALUES ARE SYNTHETIC AND FICTITIOUS",
+  "environment": "production",
+  "database": {
+    "host": "prod-db.internal.fake.com",
+    "port": 5432,
+    "name": "prod_employees",
+    "username": "svc_prod_admin",
+    "password": "Pr0d!P@ssw0rd_Fake_2024"
+  },
+  "secrets_manager": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "access_key": "AKIAIOSFODNN7EXAMPLE",
+    "secret_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  },
+  "api_keys": {
+    "internal_service": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlLXVzZXItaWQiLCJuYW1lIjoiRmFrZSBVc2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.FakeSig",
+    "third_party_crm":  "crm_live_FakeAPIKeyForCRM_xT7yR2mK9nQ4pL6w",
+    "data_warehouse":   "dw_prod_FakeWarehouseKeyABCDEFGHIJKLMNOP12345"
+  },
+  "smtp": {
+    "host": "smtp.fakecorp.invalid",
+    "port": 587,
+    "username": "noreply@fakecorp.invalid",
+    "password": "Sm7p!F@keP@ss99"
+  },
+  "encryption": {
+    "master_key": "MasterEncKey_Fake_xR9pL3mK7nT2vQ8wYbJcD6sEuFzAo",
+    "salt":       "FakeSalt_aB3cD6eF9gH2iJ5k"
+  },
+  "internal_endpoints": {
+    "hr_system":     "https://hr-api.internal.fake.com/v2",
+    "payroll":       "https://payroll.internal.fake.com/api",
+    "identity":      "https://sso.internal.fake.com/.well-known/openid-configuration"
+  }
+}

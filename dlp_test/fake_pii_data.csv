@@ -1,0 +1,9 @@
+first_name,last_name,email,phone,ssn,dob,credit_card,card_expiry,card_cvv,address,city,state,zip,salary,employee_id
+John,Testington,john.testington@fakecorp.invalid,+1-555-010-0001,123-45-6789,1980-03-14,4111111111111111,12/28,123,100 Fake Street,Springfield,IL,62701,95000,EMP-00001
+Jane,Samplesworth,jane.samplesworth@fakecorp.invalid,+1-555-010-0002,234-56-7890,1975-07-22,5500005555555559,09/27,456,200 Test Avenue,Shelbyville,NY,10001,112000,EMP-00002
+Robert,Mockerson,r.mockerson@fakecorp.invalid,+1-555-010-0003,345-67-8901,1990-11-05,378282246310005,04/26,789,300 Placeholder Blvd,Capital City,CA,90001,87500,EMP-00003
+Emily,Placeholder,emily.p@fakecorp.invalid,+1-555-010-0004,456-78-9012,1988-01-30,6011111111111117,11/29,321,401 Dummy Lane,Centerville,TX,75001,103000,EMP-00004
+Michael,Fabricated,m.fabricated@fakecorp.invalid,+1-555-010-0005,567-89-0123,1965-09-18,3714496353398431,07/27,654,500 Synthetic Road,Faketown,FL,33101,145000,EMP-00005
+Sarah,Invented,sarah.invented@fakecorp.invalid,+1-555-010-0006,678-90-1234,1993-04-02,4012888888881881,03/28,987,601 Pretend Circle,Noplace,WA,98001,79000,EMP-00006
+David,Notreal,d.notreal@fakecorp.invalid,+1-555-010-0007,789-01-2345,1982-12-25,5105105105105100,08/26,159,702 Imaginary Way,Anytown,GA,30301,92000,EMP-00007
+Lisa,Synthetic,lisa.s@fakecorp.invalid,+1-555-010-0008,890-12-3456,1978-06-11,4222222222222,01/27,753,803 Fictional Drive,Elsewhere,OH,43001,118000,EMP-00008
