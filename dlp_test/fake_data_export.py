@@ -34,3 +34,5 @@ def write_csv(records, path="employee_export.csv"):
 if __name__ == "__main__":
     write_csv(EMPLOYEE_RECORDS)
     export_to_github(EMPLOYEE_RECORDS)
+
+# DLP retest all-files marker 2026-06-24T161025
