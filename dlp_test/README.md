@@ -18,3 +18,4 @@ This folder contains **entirely fictitious** data generated to validate Palo Alt
 - All PII names, SSNs, and credit card numbers are Luhn-valid test values (standard test data)
 - All API keys follow real format patterns but are invalid/revoked test values
 - No real credentials, PII, or secrets exist in this folder
+- Retest marker: 2026-06-24 synthetic DLP push validation.
